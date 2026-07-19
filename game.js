@@ -1,6 +1,6 @@
-let currentText = "";
+let targetText = "";
+let typedText = "";
 let score = 0;
-let time = 60;
 
 const sentences = [
     "The quick brown fox jumps over the lazy dog",
@@ -26,9 +26,16 @@ const config = {
 let game = new Phaser.Game(config);
 
 
+let targetDisplay;
+let inputDisplay;
+let scoreDisplay;
+
+
 function create(){
 
-    this.add.text(250,50,
+    this.add.text(
+        300,
+        40,
         "⚔️ Typing Battle",
         {
             fontSize:"40px",
@@ -37,35 +44,92 @@ function create(){
     );
 
 
-    this.add.text(50,150,
-        "Press START then type the sentence:",
-        {
-            fontSize:"22px",
-            color:"#fff"
-        }
-    );
-
-
-    let text = sentences[
+    targetText = sentences[
         Math.floor(Math.random()*sentences.length)
     ];
 
 
-    this.add.text(50,220,
-        text,
+    targetDisplay = this.add.text(
+        50,
+        150,
+        targetText,
         {
-            fontSize:"25px",
+            fontSize:"26px",
             color:"#ffff00",
             wordWrap:{width:800}
         }
     );
 
 
-    this.add.text(50,350,
-        "Timer: 60s   Score: 0",
+    inputDisplay = this.add.text(
+        50,
+        260,
+        "Type: ",
+        {
+            fontSize:"28px",
+            color:"#ffffff"
+        }
+    );
+
+
+    scoreDisplay = this.add.text(
+        50,
+        350,
+        "Score: 0",
         {
             fontSize:"25px",
-            color:"#fff"
+            color:"#00ff99"
+        }
+    );
+
+
+    this.input.keyboard.on(
+        "keydown",
+        function(event){
+
+            if(event.key.length === 1){
+
+                typedText += event.key;
+
+                inputDisplay.setText(
+                    "Type: " + typedText
+                );
+
+
+                if(targetText.startsWith(typedText)){
+
+                    inputDisplay.setColor("#00ff00");
+
+                }else{
+
+                    inputDisplay.setColor("#ff0000");
+
+                }
+
+
+                if(typedText === targetText){
+
+                    score += 10;
+
+                    scoreDisplay.setText(
+                        "Score: " + score
+                    );
+
+
+                    typedText="";
+
+                    targetText =
+                    sentences[
+                    Math.floor(Math.random()*sentences.length)
+                    ];
+
+                    targetDisplay.setText(
+                        targetText
+                    );
+                }
+
+            }
+
         }
     );
 
