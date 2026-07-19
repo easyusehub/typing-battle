@@ -355,7 +355,7 @@ let damage =
 
 
 enemyHP-=damage;
-
+playerAttack();
 
 
 document.getElementById("enemyHP")
@@ -409,3 +409,31 @@ location.reload();
 
 
 });
+function playerAttack(){
+
+    let player = document.getElementById("player");
+
+    let enemy = document.getElementById("enemy");
+
+
+    player.classList.add("attack");
+
+
+    setTimeout(()=>{
+
+        player.classList.remove("attack");
+
+
+        enemy.classList.add("enemyHit");
+
+
+        setTimeout(()=>{
+
+            enemy.classList.remove("enemyHit");
+
+        },200);
+
+
+    },200);
+
+}
