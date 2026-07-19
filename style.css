@@ -1,45 +1,257 @@
 body {
-    margin: 0;
-    padding: 0;
-    background: #111827;
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
+
+    margin:0;
+    padding:0;
+
+    background:#111827;
+
+    color:white;
+
+    font-family:Arial, sans-serif;
+
+    text-align:center;
+
 }
+
+
+
+/* HOME MENU */
 
 #menu {
-    padding: 30px 15px;
+
+    padding:30px 15px;
+
 }
+
+
 
 h1 {
-    font-size: 40px;
-    color: #00ff99;
+
+    font-size:40px;
+
+    color:#00ff99;
+
 }
+
+
 
 button {
-    display: block;
-    margin: 12px auto;
-    padding: 12px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    background: #2563eb;
-    color: white;
+
+    padding:12px 30px;
+
+    margin:10px;
+
+    font-size:18px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    cursor:pointer;
+
 }
+
+
 
 button:hover {
-    background: #1d4ed8;
+
+    background:#1d4ed8;
+
 }
+
+
 
 select {
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 8px;
+
+    padding:12px;
+
+    font-size:18px;
+
+    border-radius:10px;
+
+    background:white;
+
 }
 
+
+
+
+/* BATTLE SCREEN */
+
+
+#battleScreen {
+
+    padding:20px;
+
+}
+
+
+
+.stats {
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:20px;
+
+    font-size:20px;
+
+}
+
+
+
+
+
+/* STICKMAN AREA */
+
+
+#arena {
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    height:180px;
+
+    font-size:80px;
+
+}
+
+
+
+#player {
+
+    transition:0.2s;
+
+}
+
+
+
+#enemy {
+
+    transition:0.2s;
+
+}
+
+
+
+
+/* ATTACK ANIMATION */
+
+
+.attack {
+
+    transform:translateX(80px);
+
+}
+
+
+
+.enemyHit {
+
+    transform:translateX(-40px);
+
+}
+
+
+
+
+
+/* TYPING TEXT */
+
+
+#targetText {
+
+    color:#ffe600;
+
+    font-size:26px;
+
+    max-width:800px;
+
+    margin:25px auto;
+
+}
+
+
+
+#typingInput {
+
+    width:80%;
+
+    max-width:600px;
+
+    padding:15px;
+
+    font-size:22px;
+
+    border-radius:10px;
+
+    border:none;
+
+}
+
+
+
+
+
+/* PHASER GAME */
+
 #game {
-    width: 100%;
-    max-width: 900px;
-    margin: auto;
+
+    width:100%;
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+
+
+
+/* MOBILE RESPONSIVE */
+
+
+@media(max-width:600px){
+
+
+h1{
+
+font-size:30px;
+
+}
+
+
+#arena{
+
+font-size:60px;
+
+}
+
+
+
+#targetText{
+
+font-size:20px;
+
+}
+
+
+.stats{
+
+font-size:16px;
+
+}
+
+
+
 }
