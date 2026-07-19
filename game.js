@@ -409,6 +409,7 @@ location.reload();
 
 
 });
+
 function playerAttack(){
 
     let player = document.getElementById("player");
