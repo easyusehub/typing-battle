@@ -1,3 +1,5 @@
+let playerHP = 100;
+let enemyHP = 100;
 let selectedTime = 60;
 let selectedMode = "beginner";
 
