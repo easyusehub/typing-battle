@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #111827;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#menu {
+    padding: 30px 15px;
+}
+
+h1 {
+    font-size: 40px;
+    color: #00ff99;
+}
+
+button {
+    display: block;
+    margin: 12px auto;
+    padding: 12px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+select {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+#game {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+}
