@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Typing Battle</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Phaser Game Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+</head>
+
+<body>
+
+    <div id="menu">
+
+        <h1>⚔️ Typing Battle</h1>
+
+        <button id="playBtn">
+            ▶ Start Game
+        </button>
+
+        <h3>Select Time</h3>
+
+        <button class="timeBtn" data-time="60">
+            1 Minute
+        </button>
+
+        <button class="timeBtn" data-time="180">
+            3 Minutes
+        </button>
+
+        <button class="timeBtn" data-time="300">
+            5 Minutes
+        </button>
+
+
+        <h3>Select Difficulty</h3>
+
+        <select id="difficulty">
+
+            <option value="beginner">
+                Beginner
+            </option>
+
+            <option value="normal">
+                Normal
+            </option>
+
+            <option value="peak">
+                Peak
+            </option>
+
+            <option value="nightmare">
+                Nightmare
+            </option>
+
+            <option value="legend">
+                Legend
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Phaser Game Area -->
+
+    <div id="game"></div>
+
+
+    <!-- Our Game Code -->
+
+    <script src="game.js"></script>
+
+</body>
+</html>
