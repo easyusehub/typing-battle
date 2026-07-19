@@ -1,3 +1,50 @@
+let selectedTime = 60;
+let selectedMode = "beginner";
+
+
+document.querySelectorAll(".timeBtn").forEach(button=>{
+
+button.onclick=function(){
+
+selectedTime = Number(this.dataset.time);
+
+alert("Time Selected: " + selectedTime + " seconds");
+
+}
+
+});
+
+
+document.getElementById("difficulty")
+.onchange=function(){
+
+selectedMode = this.value;
+
+console.log("Mode:", selectedMode);
+
+};
+
+
+
+document.getElementById("playBtn")
+.onclick=function(){
+
+document.getElementById("menu").style.display="none";
+
+startGame();
+
+};
+
+
+function startGame(){
+
+console.log(
+"Game Started",
+selectedTime,
+selectedMode
+);
+
+}
 let targetText = "";
 let typedText = "";
 let score = 0;
