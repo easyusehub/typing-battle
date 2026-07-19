@@ -1,5 +1,3 @@
-let playerHP = 100;
-let enemyHP = 100;
 let selectedTime = 60;
 let selectedMode = "beginner";
 
@@ -13,6 +11,10 @@ let timerInterval;
 let totalTyped = 0;
 let correctTyped = 0;
 let combo = 0;
+
+let playerHP = 100;
+let enemyHP = 100;
+
 let startTime;
 
 
@@ -23,8 +25,10 @@ const sentences = {
 beginner:[
 "The sun is bright",
 "I like to play games",
-"Typing is fun"
+"Typing is fun",
+"I love learning"
 ],
+
 
 normal:[
 "Typing speed improves with daily practice",
@@ -32,14 +36,17 @@ normal:[
 "Practice makes you a better player"
 ],
 
+
 peak:[
 "Fast typing creates powerful attacks in battle",
 "Strong players improve their skills every day"
 ],
 
+
 nightmare:[
 "The legendary warrior defeated the powerful enemy"
 ],
+
 
 legend:[
 "Mastering typing speed requires patience focus and continuous practice"
@@ -49,40 +56,26 @@ legend:[
 
 
 
-// Time Select
+// Select Time
 
-document.querySelectorAll(".timeBtn")
-.forEach(button=>{
+document.getElementById("timeSelect")
+.onchange=function(){
 
-button.onclick=function(){
+selectedTime = Number(this.value);
 
-selectedTime =
-Number(this.dataset.time);
-
-console.log(
-"Time:",
-selectedTime
-);
-
-}
-
-});
+};
 
 
 
-// Difficulty Select
+// Select Difficulty
 
 document.getElementById("difficulty")
 .onchange=function(){
 
 selectedMode=this.value;
 
-console.log(
-"Mode:",
-selectedMode
-);
-
 };
+
 
 
 
@@ -107,39 +100,48 @@ startGame();
 
 
 
-// Start Game
+
 
 function startGame(){
 
+
 score=0;
+
 typedText="";
+
 
 timeLeft=selectedTime;
 
 
+playerHP=100;
+
+enemyHP=100;
+
+
 totalTyped=0;
+
 correctTyped=0;
+
 combo=0;
+
 
 
 startTime=Date.now();
 
 
 
-document.getElementById("timer")
-.innerText=timeLeft;
+document.getElementById("timer").innerText=timeLeft;
 
+document.getElementById("score").innerText=score;
 
-document.getElementById("score")
-.innerText=score;
+document.getElementById("playerHP").innerText=playerHP;
 
+document.getElementById("enemyHP").innerText=enemyHP;
 
-document.getElementById("wpm")
-.innerText=0;
+document.getElementById("wpm").innerText=0;
 
+document.getElementById("accuracy").innerText="100%";
 
-document.getElementById("accuracy")
-.innerText="100%";
 
 
 newSentence();
@@ -148,13 +150,19 @@ newSentence();
 startTimer();
 
 
+
 }
+
+
+
 
 
 
 // Timer
 
+
 function startTimer(){
+
 
 clearInterval(timerInterval);
 
@@ -172,6 +180,7 @@ document.getElementById("timer")
 
 if(timeLeft<=0){
 
+
 clearInterval(timerInterval);
 
 
@@ -183,14 +192,20 @@ alert(
 }
 
 
-
 },1000);
+
+
 
 }
 
 
 
+
+
+
+
 // New Sentence
+
 
 function newSentence(){
 
@@ -214,8 +229,10 @@ document.getElementById("targetText")
 .innerText=targetText;
 
 
+
 document.getElementById("typingInput")
 .value="";
+
 
 
 }
@@ -223,28 +240,25 @@ document.getElementById("typingInput")
 
 
 
+
+
+
+
 // Typing System
 
 
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
+document.getElementById("typingInput")
+.addEventListener("input",function(){
 
 
-let input =
-document.getElementById("typingInput");
-
-
-
-input.addEventListener(
-"input",
-()=>{
+let input=this;
 
 
 typedText=input.value;
 
 
 totalTyped++;
+
 
 
 
@@ -261,7 +275,9 @@ combo++;
 
 
 
-}else{
+}
+
+else{
 
 
 input.style.color="red";
@@ -270,14 +286,27 @@ input.style.color="red";
 combo=0;
 
 
+// Enemy attack
+
+playerHP-=5;
+
+
+document.getElementById("playerHP")
+.innerText=playerHP;
+
+
+
 }
+
+
+
 
 
 
 // Accuracy
 
-let accuracy =
-Math.floor(
+
+let accuracy=Math.floor(
 (correctTyped/totalTyped)*100
 );
 
@@ -288,7 +317,11 @@ accuracy+"%";
 
 
 
+
+
+
 // WPM
+
 
 let minutes =
 (Date.now()-startTime)/60000;
@@ -300,33 +333,79 @@ Math.floor(
 );
 
 
-
 document.getElementById("wpm")
 .innerText=wpm;
 
 
 
 
-// Complete
+
+
+
+
+// Complete Sentence
+
 
 if(typedText===targetText){
 
 
-score += 10 + combo;
+
+let damage =
+10 + combo;
+
+
+enemyHP-=damage;
+
+
+
+document.getElementById("enemyHP")
+.innerText=enemyHP;
+
+
+
+score += damage;
 
 
 document.getElementById("score")
 .innerText=score;
 
 
-newSentence();
+
+
+if(enemyHP<=0){
+
+
+alert("🏆 YOU WIN!");
+
+enemyHP=100;
 
 
 }
 
 
 
-});
+newSentence();
+
+
+
+}
+
+
+
+
+
+if(playerHP<=0){
+
+
+alert("💀 YOU LOSE!");
+
+
+location.reload();
+
+
+}
+
+
 
 
 });
