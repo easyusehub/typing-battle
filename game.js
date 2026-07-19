@@ -1,53 +1,12 @@
 let selectedTime = 60;
 let selectedMode = "beginner";
 
-
-document.querySelectorAll(".timeBtn").forEach(button=>{
-
-button.onclick=function(){
-
-selectedTime = Number(this.dataset.time);
-
-alert("Time Selected: " + selectedTime + " seconds");
-
-}
-
-});
-
-
-document.getElementById("difficulty")
-.onchange=function(){
-
-selectedMode = this.value;
-
-console.log("Mode:", selectedMode);
-
-};
-
-
-
-document.getElementById("playBtn")
-.onclick=function(){
-
-document.getElementById("menu").style.display="none";
-
-startGame();
-
-};
-
-
-function startGame(){
-
-console.log(
-"Game Started",
-selectedTime,
-selectedMode
-);
-
-}
-let targetText = "";
-let typedText = "";
 let score = 0;
+let typedText = "";
+let targetText = "";
+
+let timeLeft = 60;
+let timerInterval;
 
 const sentences = [
     "The quick brown fox jumps over the lazy dog",
@@ -58,126 +17,195 @@ const sentences = [
 ];
 
 
-const config = {
-    type: Phaser.AUTO,
-    width: 900,
-    height: 500,
-    parent: "game",
-    backgroundColor: "#222",
-    scene: {
-        create: create
+// TIME SELECT
+
+document.querySelectorAll(".timeBtn").forEach(button => {
+
+    button.onclick = function(){
+
+        selectedTime = Number(this.dataset.time);
+
+        console.log(
+            "Time:",
+            selectedTime
+        );
+
     }
+
+});
+
+
+// DIFFICULTY SELECT
+
+document.getElementById("difficulty").onchange=function(){
+
+    selectedMode=this.value;
+
+    console.log(
+        "Mode:",
+        selectedMode
+    );
+
 };
 
 
-let game = new Phaser.Game(config);
+// START BUTTON
+
+document.getElementById("playBtn").onclick=function(){
+
+    document.getElementById("menu").style.display="none";
+
+    document.getElementById("battleScreen").style.display="block";
+
+    startGame();
+
+};
 
 
-let targetDisplay;
-let inputDisplay;
-let scoreDisplay;
+
+// START GAME
+
+function startGame(){
+
+    score=0;
+
+    timeLeft=selectedTime;
+
+    document.getElementById("timer").innerText=timeLeft;
+
+    document.getElementById("score").innerText=score;
 
 
-function create(){
+    newSentence();
 
-    this.add.text(
-        300,
-        40,
-        "⚔️ Typing Battle",
-        {
-            fontSize:"40px",
-            color:"#00ff99"
+
+    startTimer();
+
+}
+
+
+
+
+// TIMER
+
+function startTimer(){
+
+    clearInterval(timerInterval);
+
+
+    timerInterval=setInterval(()=>{
+
+
+        timeLeft--;
+
+
+        document.getElementById("timer").innerText=timeLeft;
+
+
+
+        if(timeLeft<=0){
+
+            clearInterval(timerInterval);
+
+            alert(
+                "Game Over! Score: "+score
+            );
+
         }
-    );
 
 
-    targetText = sentences[
-        Math.floor(Math.random()*sentences.length)
+    },1000);
+
+}
+
+
+
+
+
+// NEW SENTENCE
+
+function newSentence(){
+
+    targetText =
+    sentences[
+        Math.floor(
+            Math.random()*sentences.length
+        )
     ];
 
 
-    targetDisplay = this.add.text(
-        50,
-        150,
-        targetText,
-        {
-            fontSize:"26px",
-            color:"#ffff00",
-            wordWrap:{width:800}
-        }
-    );
+    typedText="";
 
 
-    inputDisplay = this.add.text(
-        50,
-        260,
-        "Type: ",
-        {
-            fontSize:"28px",
-            color:"#ffffff"
-        }
-    );
+    document.getElementById("targetText").innerText=
+    targetText;
 
 
-    scoreDisplay = this.add.text(
-        50,
-        350,
-        "Score: 0",
-        {
-            fontSize:"25px",
-            color:"#00ff99"
-        }
-    );
-
-
-    this.input.keyboard.on(
-        "keydown",
-        function(event){
-
-            if(event.key.length === 1){
-
-                typedText += event.key;
-
-                inputDisplay.setText(
-                    "Type: " + typedText
-                );
-
-
-                if(targetText.startsWith(typedText)){
-
-                    inputDisplay.setColor("#00ff00");
-
-                }else{
-
-                    inputDisplay.setColor("#ff0000");
-
-                }
-
-
-                if(typedText === targetText){
-
-                    score += 10;
-
-                    scoreDisplay.setText(
-                        "Score: " + score
-                    );
-
-
-                    typedText="";
-
-                    targetText =
-                    sentences[
-                    Math.floor(Math.random()*sentences.length)
-                    ];
-
-                    targetDisplay.setText(
-                        targetText
-                    );
-                }
-
-            }
-
-        }
-    );
+    document.getElementById("typingInput").value="";
 
 }
+
+
+
+
+// TYPING SYSTEM
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+let input =
+document.getElementById("typingInput");
+
+
+input.addEventListener(
+"input",
+()=>{
+
+
+typedText=input.value;
+
+
+
+if(targetText.startsWith(typedText)){
+
+
+input.style.color="green";
+
+
+}else{
+
+
+input.style.color="red";
+
+
+}
+
+
+
+
+if(typedText===targetText){
+
+
+score+=10;
+
+
+document.getElementById("score").innerText=
+score;
+
+
+newSentence();
+
+
+}
+
+
+
+});
+
+
+});
+
+                    
